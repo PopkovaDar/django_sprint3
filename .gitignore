@@ -146,4 +146,8 @@ dmypy.json
 .mypy_cache
 
 # папки со статикой и медиа
-media/
+media/.vscode
+.pip
+.static
+.venv
+.pip
