@@ -56,8 +56,7 @@ class Post(BaseModel):
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор публикации',
-        related_name='author_post'
-        )
+        related_name='author_post')
     location = models.ForeignKey(
         Location,
         on_delete=models.SET_NULL,

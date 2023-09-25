@@ -18,7 +18,7 @@ def index(request):
     return render(request, template, context)
 
 
-def post_detail(request, id:int):
+def post_detail(request, id: int):
     template = 'blog/detail.html'
     post_list = get_object_or_404(Post.objects.filter(
         pub_date__lte=timezone.now(),
