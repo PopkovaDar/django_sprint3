@@ -1,22 +1,24 @@
+from blog.models import Category, Post
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-from blog.models import Post, Category
+
+NUMBER_OF_POSTS = 5
 
 
 def index(request):
     template = 'blog/index.html'
-    post_list = Post.objects.filter(
+    post_list = Post.objects.select_related('category').filter(
         is_published=True,
         category__is_published=True,
         pub_date__lte=timezone.now()
-    ).order_by()[:5]
+    )[:NUMBER_OF_POSTS]
     context = {
         'post_list': post_list,
     }
     return render(request, template, context)
 
 
-def post_detail(request, id):
+def post_detail(request, id:int):
     template = 'blog/detail.html'
     post_list = get_object_or_404(Post.objects.filter(
         pub_date__lte=timezone.now(),

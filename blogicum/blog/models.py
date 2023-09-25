@@ -1,15 +1,17 @@
-from django.db import models
 from core.models import BaseModel
 from django.contrib.auth import get_user_model
+from django.db import models
 
 User = get_user_model()
 
 
 class Category(BaseModel):
+    """В этой модели описаны категории"""
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок')
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(
+        verbose_name='Описание')
     slug = models.SlugField(
         unique=True,
         verbose_name='Идентификатор',
@@ -18,7 +20,7 @@ class Category(BaseModel):
                    'дефис и подчёркивание.'))
 
     class Meta:
-        verbose_name = 'категория'
+        verbose_name = 'категория',
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -26,19 +28,22 @@ class Category(BaseModel):
 
 
 class Location(BaseModel):
+    """В этой модели описано местоположение"""
     name = models.CharField(
         max_length=256,
         verbose_name='Название места')
 
     class Meta:
-        verbose_name = 'местоположение'
-        verbose_name_plural = 'Местоположения'
+        verbose_name = 'местоположение',
+        verbose_name_plural = 'Местоположения',
+        ordering = ['name']
 
     def __str__(self):
         return self.name
 
 
 class Post(BaseModel):
+    """В этой модели описаны посты"""
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок')
@@ -50,22 +55,27 @@ class Post(BaseModel):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Автор публикации')
+        verbose_name='Автор публикации',
+        related_name='author_post'
+        )
     location = models.ForeignKey(
         Location,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        verbose_name='Местоположение')
+        verbose_name='Местоположение',
+        related_name='location_post')
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Категория')
+        verbose_name='Категория',
+        related_name='category_post')
 
     class Meta:
-        verbose_name = 'публикация'
-        verbose_name_plural = 'Публикации'
+        verbose_name = 'публикация',
+        verbose_name_plural = 'Публикации',
+        ordering = ['text']
 
     def __str__(self):
         return self.title
