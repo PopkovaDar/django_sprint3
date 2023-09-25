@@ -20,7 +20,7 @@ class Category(BaseModel):
                    'дефис и подчёркивание.'))
 
     class Meta:
-        verbose_name = 'категория',
+        verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -34,8 +34,8 @@ class Location(BaseModel):
         verbose_name='Название места')
 
     class Meta:
-        verbose_name = 'местоположение',
-        verbose_name_plural = 'Местоположения',
+        verbose_name = 'местоположение'
+        verbose_name_plural = 'Местоположения'
         ordering = ['name']
 
     def __str__(self):
@@ -72,8 +72,8 @@ class Post(BaseModel):
         related_name='category_post')
 
     class Meta:
-        verbose_name = 'публикация',
-        verbose_name_plural = 'Публикации',
+        verbose_name = 'публикация'
+        verbose_name_plural = 'Публикации'
         ordering = ['text']
 
     def __str__(self):
