@@ -2,7 +2,7 @@ from django.db import models
 
 
 class BaseModel(models.Model):
-    """Класс от которого наследуются модели Category, Post и Location"""
+    """Базовый класс с общими полями моделей"""
     is_published = models.BooleanField(
         default=True,
         verbose_name='Опубликовано',
